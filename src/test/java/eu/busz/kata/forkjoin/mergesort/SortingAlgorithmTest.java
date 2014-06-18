@@ -13,7 +13,7 @@ public class SortingAlgorithmTest {
 
     @Test
     public void sortsSingleElementCollection() {
-        Integer[] input = toArray(5);
+        int[] input = toArray(5);
 
         ConcurrentSorter cs = new ConcurrentSorter();
         assertThat("single element collection sort", cs.sort(input), equalTo(toArray(5)));
@@ -21,7 +21,7 @@ public class SortingAlgorithmTest {
 
     @Test
     public void sortsEmptyCollection() {
-        Integer[] input = new Integer[0];
+        int[] input = new int[0];
         ConcurrentSorter cs = new ConcurrentSorter();
 
         assertThat("returns empty collection when sorting empty", cs.sort(input), equalTo(toArray()));
@@ -29,17 +29,21 @@ public class SortingAlgorithmTest {
 
     @Test
     public void sortsFiveElementList() {
-        Integer[] input = toArray(5,11,-1,0,0);
+        int[] input = toArray(5,11,-1,1000,0);
         ConcurrentSorter cs = new ConcurrentSorter();
 
-        assertThat("retuns sorted list", cs.sort(input), equalTo(toArray(-1,0,0,5,11)));
+        assertThat("retuns sorted list", cs.sort(input), equalTo(toArray(-1,0,5,11,1000)));
     }
 
-    private Integer[] toArray(Integer... elements) {
-//        List<Integer> result = new ArrayList<>();
-//        for (int element : elements) {
-//            result.add(element);
-//        }
+    @Test
+    public void sortsSixRandomElementList() {
+        int[] input = toArray(5,33,100,3,-220, 0, 4444, -50, 10000,1,1,1);
+        ConcurrentSorter cs = new ConcurrentSorter();
+
+        assertThat("returns sorted array", cs.sort(input), equalTo(toArray(-220, -50, 0, 1,1,1, 3, 5,33,100,4444,10000)));
+    }
+
+    private int[] toArray(int... elements) {
         return elements;
     }
 }

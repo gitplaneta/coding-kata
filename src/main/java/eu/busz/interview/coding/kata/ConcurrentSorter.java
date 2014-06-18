@@ -1,36 +1,46 @@
 package eu.busz.interview.coding.kata;
 
-import java.util.List;
+public class ConcurrentSorter {
 
-public class ConcurrentSorter<T extends Comparable<T>> {
-
-    public T[] sort(T[] input) {
-        mergeSort(input, 0, input.length);
-
+    public int[] sort(int[] input) {
+        mergeSort(input, 0, input.length-1);
         return input;
     }
 
-    private void mergeSort(T[] arr, int begin, int end) {
-        if (begin >= end) {
-            mergeSort(arr, begin, end / 2);
-            mergeSort(arr, end / 2 + 1, end);
+    private void mergeSort(int[] arr, int begin, int end) {
+        if (begin < end) {
+            int mid = begin + (end - begin) / 2;
+            mergeSort(arr, begin, mid);
+            mergeSort(arr, mid+1, end);
 
-            merge(arr, begin, end);
+            merge(arr, begin, mid, end);
         }
     }
 
-    private void merge(T[] arr, int begin, int end) {
-        int mid = end / 2;
-        int right = begin;
-        int left = end / 2 + 1;
+    private void merge(int[] arr, int begin, int mid, int end) {
+        int[] tmp = new int[end - begin + 1];
+        int left = begin;
+        int right = mid + 1;
 
-        if (arr[left].compareTo(arr[mid]) <= 0) {
-            left++;
-        } else {
-            while (right < mid && left < end) {
-                T tmp = arr[mid];
+        int curr = 0;
+        while (left <= mid || right <= end) {
+            boolean rightInBoudary = right <= end;
+            boolean leftInBoundary = left <= mid;
+            int assignVal;
 
+            if (leftInBoundary && !rightInBoudary) {
+                assignVal = arr[left++];
+            } else if (rightInBoudary && !leftInBoundary) {
+                assignVal = arr[right++];
+            } else if (arr[right] > arr[left]) {
+                assignVal = arr[left++];
+            } else {
+                assignVal = arr[right++];
             }
+            tmp[curr++] = assignVal;
+        }
+        for (int i = begin; i <= end; i++) {
+            arr[i] = tmp[i-begin];
         }
     }
 
