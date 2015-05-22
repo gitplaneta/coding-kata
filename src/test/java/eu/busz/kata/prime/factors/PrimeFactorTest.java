@@ -1,10 +1,8 @@
 package eu.busz.kata.prime.factors;
 
 import com.google.common.collect.ImmutableList;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static eu.busz.kata.prime.factors.PrimeFactorGenerator.generatePrimeFactors;
@@ -43,5 +41,10 @@ public class PrimeFactorTest {
     public void correctlyReturnsPrimeFactorsForAllNumbers() {
         assertThat(generatePrimeFactors(27), equalTo(ImmutableList.of(3,3,3)));
         assertThat(generatePrimeFactors(77), equalTo(ImmutableList.of(7, 11)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void passingSmallerValuesThanOneAreIllegal() {
+        generatePrimeFactors(-1);
     }
 }

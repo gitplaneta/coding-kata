@@ -1,8 +1,9 @@
 package eu.busz.kata.prime.factors;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 public class PrimeFactorGenerator {
 
@@ -13,7 +14,7 @@ public class PrimeFactorGenerator {
         }
 
         if (forValue == 1) {
-            result = Collections.emptyList();
+            result = emptyList();
         } else {
             for (int i = 2; i <= forValue; i++) {
                 if (forValue % i == 0) {
