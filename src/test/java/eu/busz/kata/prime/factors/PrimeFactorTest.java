@@ -38,4 +38,10 @@ public class PrimeFactorTest {
         assertThat("Power of two's yield correct result", generatePrimeFactors(256),
                 equalTo(ImmutableList.of(2,2,2,2,2,2,2,2)));
     }
+
+    @Test
+    public void correctlyReturnsPrimeFactorsForAllNumbers() {
+        assertThat(generatePrimeFactors(27), equalTo(ImmutableList.of(3,3,3)));
+        assertThat(generatePrimeFactors(77), equalTo(ImmutableList.of(7, 11)));
+    }
 }
