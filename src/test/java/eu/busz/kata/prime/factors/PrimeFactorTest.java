@@ -1,6 +1,7 @@
 package eu.busz.kata.prime.factors;
 
 import com.google.common.collect.ImmutableList;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.List;
 import static eu.busz.kata.prime.factors.PrimeFactorGenerator.generatePrimeFactors;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 
 public class PrimeFactorTest {
@@ -22,5 +24,10 @@ public class PrimeFactorTest {
     @Test
     public void valueOfOneHasNoPrimeFactors() {
         assertThat("One has no prime factors", generatePrimeFactors(1), equalTo(emptyList()));
+    }
+
+    @Test
+    public void forEvenNumbersLargerThanTwoReturnsAtLeastTwoValues() {
+        assertThat("Event numbers have at least two prime factors", generatePrimeFactors(10).size(), greaterThan(1));
     }
 }
