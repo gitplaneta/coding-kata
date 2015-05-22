@@ -30,4 +30,12 @@ public class PrimeFactorTest {
     public void forEvenNumbersLargerThanTwoReturnsAtLeastTwoValues() {
         assertThat("Event numbers have at least two prime factors", generatePrimeFactors(10).size(), greaterThan(1));
     }
+
+    @Test
+    public void forPowersOfTwoReturnsAllPrimeFactors() {
+        assertThat("Power of two's yield correct result", generatePrimeFactors(32),
+                equalTo(ImmutableList.of(2,2,2,2,2)));
+        assertThat("Power of two's yield correct result", generatePrimeFactors(256),
+                equalTo(ImmutableList.of(2,2,2,2,2,2,2,2)));
+    }
 }
